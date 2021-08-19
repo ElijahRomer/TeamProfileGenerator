@@ -1,7 +1,9 @@
 const Inquirer = require(`inquirer`);
+const fs = require(`fs`);
 const Manager = require(`./lib/Manager`);
 const Engineer = require(`./lib/Engineer`);
 const Intern = require(`./lib/Intern`);
+const generateHtml = require(`./src/generateHtml`);
 
 const employeePrompts = [
   {
@@ -52,7 +54,7 @@ const employeePrompts = [
     default: "Northwestern University",
     when: (answers) => answers.role === "Intern" ? true : false
   }
-]
+];
 
 const next = [
   {
@@ -61,14 +63,12 @@ const next = [
     message: "Would you like to add an additional team member?",
     choices: ["Yes", "No"]
   }
-]
+];
 
 
-const teamMemberArray = []
+const teamMemberArray = [];
 
-const writeHtml = () => {
-  console.log(`THE TEAM MEMBER ARRAY IS: `, teamMemberArray)
-}
+// let generatedHtml = generateHtml(teamMemberArray)
 
 const init = () => Inquirer  
   .prompt(employeePrompts)
@@ -89,63 +89,15 @@ const init = () => Inquirer
       }
       Inquirer.prompt(next)
         .then(next => {
-          next.addAdditionalTeamMember === "Yes" ? init() : writeHtml()
+          next.addAdditionalTeamMember === "Yes" ? init() : generateHtml(teamMemberArray);
         })
-      // if (answers.addAdditionalTeamMember === "Yes") {
-      //   init()
-      //   return;
-      // }
-      // writeHtml();
+        .catch(err => {
+          console.log(err);
+        })
     }
   )
   .catch((err) => {
     console.log(err)
   })
 
-  
   init()
-  // console.log(teamMemberArray)
-
-  // switch (employeeAnswers.role) {
-    //   case "Manager":
-    //    Inquirer
-    //     .prompt(managerPrompts)
-    //     .then(managerAnswers => {
-    //       let managerObject = {...employeeAnswers, ...managerAnswers};
-    //       teamMemberArray.push(managerObject);
-    //       console.log(`TeamMemberArray: \n`, teamMemberArray)
-    //     })
-    //     .then(() => { 
-    //       inquirer
-    //       .prompt(confirmAdditionalTeamMember)
-    //       .then((addAdditionalTeamMember) => addAdditionalTeamMember === "Yes" ? init() : writeHtml())
-    //     }) 
-    //     break;
-
-    //   case "Engineer":
-    //     Inquirer
-    //       .prompt(engineerPrompts)
-    //       .then(engineerAnswers => {
-    //         let engineerObject = {...employeeAnswers, ...engineerAnswers};
-    //         teamMemberArray.push(engineerObject);
-    //         console.log(`TeamMemberArray: \n`, teamMemberArray)
-    //       })
-    //       .then(() => { 
-    //         inquirer
-    //         .prompt(confirmAdditionalTeamMember)
-    //         .then((addAdditionalTeamMember) => addAdditionalTeamMember === "Yes" ? init() : writeHtml())
-    //       }) 
-
-    //   case "Intern":
-    //    Inquirer
-    //     .prompt(internPrompts)
-    //     .then(internAnswers => {
-    //       let internObject = {...employeeAnswers, ...internAnswers};
-    //       teamMemberArray.push(internObject);
-    //       console.log(`TeamMemberArray: \n`, teamMemberArray)
-    //     })
-    //     .then(() => { 
-    //       inquirer
-    //       .prompt(confirmAdditionalTeamMember)
-    //       .then((addAdditionalTeamMember) => addAdditionalTeamMember === "Yes" ? init() : writeHtml())
-    //     })  
