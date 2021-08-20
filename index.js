@@ -9,21 +9,18 @@ const employeePrompts = [
     type: "input",
     name: "name",
     message: "Please enter employee name.",
-    default: "Elijah",
     validate: input => input.length > 0 ? true : "Please enter a minimum of 1 character for employee Name."
   },
   {
     type: "input",
     name: "id",
     message: "Please enter employee id.",
-    default: "12345",
     validate: input => input.length > 0 ? true : "Please enter a minimum of 1 character for employee ID."
   },
   {
     type: "input",
     name: "email",
     message: "Please enter employee email.",
-    default: "romere88@gmail.com",
     validate: input => /\w+@\w+.\w+/ig.test(input) ? true : "Please enter a valid email address."
   },
   {
@@ -36,21 +33,18 @@ const employeePrompts = [
     type: "input",
     name: "officeNumber",
     message: "Please enter the manager's office number.",
-    default: "A111",
     when: (answers) => answers.role === "Manager" ? true : false
   },
   {
     type: "input",
     name: "github",
     message: "Please enter the engineer's github username.",
-    default: "ElijahRomer",
     when: (answers) => answers.role === "Engineer" ? true : false
   },
   {
     type: "input",
     name: "school",
     message: "Please enter the intern's school name.",
-    default: "Northwestern University",
     when: (answers) => answers.role === "Intern" ? true : false
   }
 ];
