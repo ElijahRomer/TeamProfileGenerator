@@ -1,5 +1,4 @@
 const Inquirer = require(`inquirer`);
-const fs = require(`fs`);
 const Manager = require(`./lib/Manager`);
 const Engineer = require(`./lib/Engineer`);
 const Intern = require(`./lib/Intern`);
@@ -68,8 +67,6 @@ const next = [
 
 const teamMemberArray = [];
 
-// let generatedHtml = generateHtml(teamMemberArray)
-
 const init = () => Inquirer  
   .prompt(employeePrompts)
   .then((answers) => {
@@ -100,4 +97,6 @@ const init = () => Inquirer
     console.log(err)
   })
 
-  init()
+  console.log(`\nInitializing Readme Generator...\n`)
+  setTimeout(()=> {init()}, 1000)
+
